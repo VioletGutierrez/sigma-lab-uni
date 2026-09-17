@@ -1,0 +1,596 @@
+/* Responsable: Violet Fernanda Gutierrez Reyes - Frontend */
+/* Sistema de diseno SIGMA-LAB UNI - Basado en Design System */
+
+/* ============ LAYOUT PRINCIPAL ============ */
+.dashboard-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #F8FAFC;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    color: #0b1c30;
+}
+
+/* ============ SIDEBAR ============ */
+.dash-sidebar {
+    background-color: #f8f9ff;
+    width: 288px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #c7c4d8;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    z-index: 50;
+}
+
+.dash-sidebar-header {
+    margin-bottom: 48px;
+    padding: 0 8px;
+}
+
+.dash-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.dash-brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.dash-brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+    color: #3525cd;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.dash-brand-tagline {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #464555;
+    margin-left: 40px;
+    margin-top: 2px;
+}
+
+/* Navegacion */
+.dash-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.dash-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #464555;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    min-height: 40px;
+}
+
+.dash-nav-item:hover {
+    color: #3525cd;
+    background-color: #eff4ff;
+}
+
+.dash-nav-item.active {
+    color: #3525cd;
+    background-color: #e5eeff;
+    border-left-color: #3525cd;
+    font-weight: 700;
+}
+
+.dash-nav-item .material-symbols-outlined {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.dash-nav-footer {
+    padding-top: 24px;
+    border-top: 1px solid #c7c4d8;
+    margin-top: auto;
+}
+
+/* ============ MAIN CONTENT ============ */
+.dash-main {
+    flex: 1;
+    margin-left: 288px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+/* Topbar */
+.dash-topbar {
+    background-color: #f8f9ff;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid #c7c4d8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+    min-height: 72px;
+}
+
+.dash-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.dash-icon-btn {
+    padding: 8px;
+    color: #464555;
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.dash-icon-btn:hover {
+    background-color: #d3e4fe;
+}
+
+.dash-avatar {
+    margin-left: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 1px solid #c7c4d8;
+}
+
+.dash-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Canvas */
+.dash-canvas {
+    flex: 1;
+    overflow-y: auto;
+    padding: 48px;
+    background-color: #F8FAFC;
+}
+
+.dash-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============ PAGE HEADER ============ */
+.dash-page-header {
+    margin-bottom: 48px;
+}
+
+.dash-page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #0b1c30;
+    margin: 0 0 4px 0;
+}
+
+.dash-page-subtitle {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #464555;
+    margin: 0;
+}
+
+/* ============ GRID 12 COLUMNAS ============ */
+.dash-grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.dash-metrics-grid {
+    margin-bottom: 48px;
+}
+
+/* ============ TARJETAS DE METRICAS ============ */
+.dash-metric-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    min-height: 140px;
+}
+
+.dash-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.dash-metric-label {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.05em;
+    color: #464555;
+    text-transform: uppercase;
+}
+
+.dash-metric-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dash-metric-icon .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.dash-metric-icon.red {
+    background-color: #ffdad6;
+    color: #ba1a1a;
+}
+
+.dash-metric-icon.blue {
+    background-color: #d3e4fe;
+    color: #3525cd;
+}
+
+.dash-metric-icon.lavender {
+    background-color: #f5f3ff;
+    color: #4f46e5;
+}
+
+.dash-metric-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: #0b1c30;
+}
+
+.dash-metric-value.danger {
+    color: #ba1a1a;
+}
+
+/* ============ TABLA DE INCIDENTES ============ */
+.dash-table-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.dash-table-header {
+    padding: 24px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+}
+
+.dash-table-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    color: #0b1c30;
+    margin: 0;
+}
+
+.dash-table-link {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #3525cd;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+}
+
+.dash-table-link:hover {
+    color: #4f46e5;
+}
+
+.dash-table-scroll {
+    overflow-x: auto;
+}
+
+.dash-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.dash-table thead tr {
+    background-color: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.dash-table th {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #464555;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.dash-table tbody {
+    font-size: 14px;
+    line-height: 20px;
+    color: #0b1c30;
+}
+
+.dash-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dash-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.dash-table tbody tr:hover {
+    background-color: #F5F3FF;
+}
+
+.dash-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.dash-table td:first-child {
+    font-weight: 500;
+}
+
+.dash-table .text-muted {
+    color: #464555;
+}
+
+.dash-priority-high {
+    color: #ba1a1a;
+    font-weight: 500;
+}
+
+/* ============ BADGES DE ESTADO ============ */
+.dash-status {
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.dash-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: currentColor;
+    flex-shrink: 0;
+}
+
+.dash-status.open {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.dash-status.attention {
+    background-color: #f5f3ff;
+    color: #4f46e5;
+}
+
+.dash-status.resolved {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+/* ============ COLUMNA LATERAL ============ */
+.dash-side-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dash-side-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    color: #0b1c30;
+    margin: 0 0 4px 0;
+}
+
+/* Tarjetas de activos */
+.dash-asset-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.dash-asset-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1);
+}
+
+.dash-asset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.dash-asset-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.dash-asset-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #f8f9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4f46e5;
+    border: 1px solid #f1f5f9;
+    flex-shrink: 0;
+}
+
+.dash-asset-icon .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.dash-asset-code {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0b1c30;
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.dash-asset-lab {
+    font-size: 14px;
+    line-height: 20px;
+    color: #464555;
+    margin: 2px 0 0 0;
+}
+
+.dash-asset-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    white-space: nowrap;
+}
+
+.dash-asset-badge.critical {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.dash-asset-badge.predictive {
+    background-color: #f5f3ff;
+    color: #4f46e5;
+    border: 1px solid #c7d2fe;
+}
+
+.dash-asset-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.dash-asset-btn {
+    background-color: #F5F3FF;
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dash-asset-btn:hover {
+    background-color: #4f46e5;
+    color: #ffffff;
+}
+
+/* ============ SISTEMA DE COLUMNAS RESPONSIVE ============ */
+.col-span-12 {
+    grid-column: span 12 / span 12;
+}
+
+@media (min-width: 768px) {
+    .md-col-span-6 {
+        grid-column: span 6 / span 6;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg-col-span-3 {
+        grid-column: span 3 / span 3;
+    }
+
+    .lg-col-span-4 {
+        grid-column: span 4 / span 4;
+    }
+
+    .lg-col-span-8 {
+        grid-column: span 8 / span 8;
+    }
+}

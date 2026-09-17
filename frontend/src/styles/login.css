@@ -1,0 +1,293 @@
+/* Responsable: Violet Fernanda Gutierrez Reyes - Frontend */
+
+.login-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    background-color: #f8f9ff;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    color: #0b1c30;
+}
+
+.login-left {
+    display: none;
+    position: relative;
+    background-color: #eff4ff;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .login-left {
+        display: flex;
+        width: 50%;
+    }
+}
+
+.login-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.2;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.login-illustration-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 512px;
+    aspect-ratio: 1;
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.05);
+    background-color: #ffffff;
+    border-radius: 32px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-illustration {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.1));
+}
+
+.login-branding {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    color: #3525cd;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.login-branding-text {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.login-right {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 24px;
+    position: relative;
+    z-index: 10;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.02);
+}
+
+@media (min-width: 1024px) {
+    .login-right {
+        width: 50%;
+        padding: 48px;
+    }
+}
+
+.login-form-wrapper {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.login-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+@media (min-width: 1024px) {
+    .login-header {
+        text-align: left;
+    }
+}
+
+.login-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+    .login-logo-row {
+        justify-content: flex-start;
+    }
+}
+
+.login-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #eff4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3525cd;
+}
+
+.login-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: #3525cd;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.login-subtitle {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+    color: #464555;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.login-error {
+    background-color: #ffdad6;
+    color: #93000a;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ba1a1a;
+}
+
+.login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.login-label {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #464555;
+}
+
+.login-input-wrapper {
+    position: relative;
+}
+
+.login-input-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    color: #777587;
+}
+
+.login-input {
+    width: 100%;
+    padding: 8px 16px 8px 40px;
+    background-color: #ffffff;
+    border: 1px solid #c7c4d8;
+    border-radius: 4px;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 16px;
+    color: #0b1c30;
+    transition: all 0.2s ease-in-out;
+}
+
+.login-input::placeholder {
+    color: #c7c4d8;
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.login-actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.login-forgot {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #3525cd;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.login-forgot:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #3525cd;
+    color: #ffffff;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.login-button:hover {
+    background-color: #4f46e5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-button:active {
+    transform: scale(0.98);
+}
+
+.login-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.login-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #d3e4fe;
+    text-align: center;
+}
+
+.login-footer-text {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14px;
+    color: #777587;
+}
