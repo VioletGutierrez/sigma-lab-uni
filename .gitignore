@@ -1,0 +1,41 @@
+# Dependencias
+node_modules/
+*/node_modules/
+package-lock.json
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Builds
+dist/
+build/
+*/dist/
+
+# Archivos subidos
+uploads/
+backend/uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Vite
+.vite/
+frontend/node_modules/.vite/
+
+# Prisma dev database
+backend/prisma/*.db
+backend/prisma/dev.db*
