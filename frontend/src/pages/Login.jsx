@@ -35,7 +35,7 @@ export default function Login() {
         <div className="relative z-10 w-full max-w-lg aspect-square soft-shadow bg-surface-container-lowest rounded-[32px] p-xl flex flex-col items-center justify-center">
           <img
             className="w-full h-auto object-contain drop-shadow-xl rounded-xl"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JfZhHCxeqg4AIqKM97Ho1GPhOMKFfXOYcgrnKDM9wYHH_pH3CxNB3-80A1rHdXeT0AL2avoiBmIeDwntJipOaRfVVy4zWawZsNWSVS6Rm3IB_LQ2B39i9c0xLVL48PW9YFfk23JlK0AxScfKlJn6WINhv1smrB6j3gRfw4wUhOvedDEvoZDICrahQorIce5ufnqd3zISAiHAzWTrR5ifuHSuo1tidpgVHCEpj3bWo6Pn09qAf_-Zeg"
+            src="https://www.axceleducation.id/wp-content/uploads/2025/01/Layanan-Axcel-Education-Komputer.jpg"
             alt="Laboratorio UNI"
           />
         </div>
