@@ -1,0 +1,178 @@
+// Responsable: Violet Fernanda Gutierrez Reyes y Edith Munguia - Base de Datos
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TECHNICIAN
+  ADMIN
+}
+
+model User {
+  id                String         @id @default(uuid())
+  email             String         @unique
+  password          String
+  fullName          String
+  role              Role           @default(STUDENT)
+  isActive          Boolean        @default(true)
+  lastLogin         DateTime?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  incidents         Incident[]     @relation("Reporter")
+  assignedIncidents Incident[]     @relation("AssignedTechnician")
+  maintenances      Maintenance[]
+  notifications     Notification[]
+}
+
+model Lab {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  code        String     @unique
+  description String?
+  location    String
+  capacity    Int
+  responsible String?
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  assets      Asset[]
+  incidents   Incident[]
+}
+
+model Asset {
+  id              String         @id @default(uuid())
+  code            String         @unique
+  name            String
+  brand           String?
+  model           String?
+  serialNumber    String?
+  acquisitionDate DateTime?
+  status          AssetStatus    @default(OPERATIONAL)
+  riskLevel       RiskLevel      @default(LOW)
+  labId           String
+  lab             Lab            @relation(fields: [labId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  incidents       Incident[]
+  maintenances    Maintenance[]
+  assetHistory    AssetHistory[]
+}
+
+enum AssetStatus {
+  OPERATIONAL
+  MAINTENANCE
+  REPAIR
+  DISPOSED
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model Incident {
+  id             String         @id @default(uuid())
+  code           String         @unique
+  title          String
+  description    String
+  problemType    String
+  priority       Priority       @default(MEDIUM)
+  status         IncidentStatus @default(PENDING)
+  imageUrl       String?
+  reportedBy     String
+  reporter       User           @relation("Reporter", fields: [reportedBy], references: [id])
+  assignedTo     String?
+  technician     User?          @relation("AssignedTechnician", fields: [assignedTo], references: [id])
+  assetId        String
+  asset          Asset          @relation(fields: [assetId], references: [id])
+  labId          String
+  lab            Lab            @relation(fields: [labId], references: [id])
+  diagnosis      String?
+  solution       String?
+  resolvedAt     DateTime?
+  estimatedHours Float?
+  actualHours    Float?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  maintenance    Maintenance?
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  PENDING
+  ASSIGNED
+  DIAGNOSING
+  REPAIRING
+  RESOLVED
+  CLOSED
+}
+
+model Maintenance {
+  id            String            @id @default(uuid())
+  code          String            @unique
+  type          MaintenanceType   @default(PREVENTIVE)
+  title         String
+  description   String?
+  scheduledDate DateTime
+  completedDate DateTime?
+  status        MaintenanceStatus @default(SCHEDULED)
+  assetId       String
+  asset         Asset             @relation(fields: [assetId], references: [id])
+  performedBy   String
+  technician    User              @relation(fields: [performedBy], references: [id])
+  activities    String?
+  observations  String?
+  incidentId    String?           @unique
+  incident      Incident?         @relation(fields: [incidentId], references: [id])
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+  PREDICTIVE
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model AssetHistory {
+  id          String   @id @default(uuid())
+  assetId     String
+  asset       Asset    @relation(fields: [assetId], references: [id])
+  eventType   String
+  description String
+  details     Json?
+  createdAt   DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  type      String
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+}
