@@ -1,0 +1,5 @@
+Enlace publico de Postman:
+https://documenter.getpostman.com/view/54909712/2sBYB1NTdW
+
+Enlace de la coleccion:
+https://violet-gtz2003-7808743.postman.co/workspace/Violet-Guti%C3%A9rrez's-Workspace~260ab050-2cfb-420b-847f-765007446edf/collection/54909712-a8abefc2-9a35-4b87-8266-0fcf9a1d1663?action=share&creator=54909712&active-environment=54909712-c49ce2d8-c0f2-4444-a992-6af5b51e1d29
