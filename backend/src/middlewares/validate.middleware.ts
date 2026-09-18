@@ -1,4 +1,3 @@
-typescript
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { Request, Response, NextFunction } from 'express';
 import { ZodSchema, ZodError } from 'zod';
@@ -10,7 +9,7 @@ export const validate = (schema: ZodSchema) => {
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        const errors = error.errors.map((e) => ({
+        const errors = error.issues.map((e) => ({
           field: e.path.join('.'),
           message: e.message
         }));
