@@ -1,6 +1,7 @@
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { Request, Response } from 'express';
 import { authService } from '../services/auth.service';
+import { verifyToken, generateToken } from '../utils/jwt';
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -44,14 +45,12 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
 export const refreshToken = async (req: Request, res: Response): Promise<void> => {
   try {
     const { token } = req.body;
-    const { verifyToken } = await import('../utils/jwt');
     const decoded = verifyToken(token);
     const user = await authService.getMe(decoded.id);
     if (!user) {
       res.status(401).json({ message: 'Usuario no encontrado' });
       return;
     }
-    const { generateToken } = await import('../utils/jwt');
     const newToken = generateToken({
       id: user.id,
       email: user.email,
