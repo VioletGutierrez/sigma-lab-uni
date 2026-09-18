@@ -1,81 +1,53 @@
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { Request, Response } from 'express';
-import { prisma } from '../config/database';
-import bcrypt from 'bcryptjs';
+import { userRepository } from '../repositories/user.repository';
+import { authService } from '../services/auth.service';
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        fullName: true,
-        role: true,
-        isActive: true,
-        lastLogin: true,
-        createdAt: true
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+    const users = await userRepository.findAll();
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener usuarios' });
   }
 };
 
-export const getTechnicians = async (req: Request, res: Response) => {
+export const getTechnicians = async (req: Request, res: Response): Promise<void> => {
   try {
-    const users = await prisma.user.findMany({
-      where: { role: 'TECHNICIAN', isActive: true },
-      select: { id: true, fullName: true, email: true }
-    });
-    res.json(users);
+    const technicians = await userRepository.findTechnicians();
+    res.json(technicians);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener tecnicos' });
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    const user = await prisma.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        email: true,
-        fullName: true,
-        role: true,
-        isActive: true,
-        lastLogin: true,
-        createdAt: true
-      }
-    });
-    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+    const user = await userRepository.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
+    }
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener el usuario' });
   }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
     const { fullName, role, isActive } = req.body;
-    const user = await prisma.user.update({
-      where: { id },
-      data: { fullName, role, isActive },
-      select: { id: true, email: true, fullName: true, role: true, isActive: true }
-    });
-    res.json(user);
+    const user = await userRepository.update(req.params.id, { fullName, role, isActive });
+    const { password, ...userData } = user as any;
+    res.json(userData);
   } catch (error) {
     res.status(500).json({ message: 'Error al actualizar el usuario' });
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    await prisma.user.delete({ where: { id } });
+    await userRepository.delete(req.params.id);
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar el usuario' });
@@ -84,12 +56,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { fullName, email } = req.body;
-    const user = await prisma.user.update({
-      where: { id: req.userId },
-      data: { fullName, email },
-      select: { id: true, email: true, fullName: true, role: true }
-    });
+    const user = await authService.updateProfile(req.userId, req.body);
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: 'Error al actualizar el perfil' });
@@ -99,23 +66,17 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
 export const updatePassword = async (req: Request, res: Response): Promise<void> => {
   try {
     const { currentPassword, newPassword } = req.body;
-    const user = await prisma.user.findUnique({ where: { id: req.userId } });
-    if (!user) {
-      res.status(404).json({ message: 'Usuario no encontrado' });
+    const result = await authService.updatePassword(req.userId, currentPassword, newPassword);
+    res.json(result);
+  } catch (error: any) {
+    if (error.message === 'Contrasena actual incorrecta') {
+      res.status(401).json({ message: error.message });
       return;
     }
-    const isValid = await bcrypt.compare(currentPassword, user.password);
-    if (!isValid) {
-      res.status(401).json({ message: 'Contrasena actual incorrecta' });
+    if (error.message === 'Usuario no encontrado') {
+      res.status(404).json({ message: error.message });
       return;
     }
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await prisma.user.update({
-      where: { id: req.userId },
-      data: { password: hashedPassword }
-    });
-    res.json({ message: 'Contrasena actualizada correctamente' });
-  } catch (error) {
     res.status(500).json({ message: 'Error al actualizar la contrasena' });
   }
 };

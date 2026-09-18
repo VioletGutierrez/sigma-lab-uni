@@ -1,4 +1,3 @@
-typescript
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { incidentRepository } from '../repositories/incident.repository';
 import { userRepository } from '../repositories/user.repository';
@@ -20,22 +19,9 @@ const findLeastBusyTechnician = async (): Promise<string | null> => {
   return workloads[0].id;
 };
 
-const notifyAdmins = async (title: string, message: string, type: string, link?: string) => {
-  const admins = await userRepository.findAll();
-  const adminUsers = admins.filter((u) => u.role === 'ADMIN');
-
-  for (const admin of adminUsers) {
-    await notificationRepository.create({
-      userId: admin.id,
-      title,
-      message,
-      type,
-      link
-    });
-  }
-};
-
 export const incidentService = {
+  findLeastBusyTechnician,
+
   getAll: async (filters: any) => {
     const where: any = {};
     if (filters.status) where.status = filters.status;
@@ -58,6 +44,10 @@ export const incidentService = {
 
   getMyIncidents: async (userId: string) => {
     return incidentRepository.findByReporter(userId);
+  },
+
+  update: async (id: string, data: any) => {
+    return incidentRepository.update(id, data);
   },
 
   create: async (data: any, userId: string) => {
@@ -96,12 +86,16 @@ export const incidentService = {
       });
     }
 
-    await notifyAdmins(
-      'Nuevo incidente reportado',
-      `Se ha reportado el incidente ${code}: ${data.title}`,
-      'INCIDENT_UPDATED',
-      `/incidents/${incident.id}`
-    );
+    const admins = await userRepository.findAll();
+    for (const admin of admins.filter((u) => u.role === 'ADMIN')) {
+      await notificationRepository.create({
+        userId: admin.id,
+        title: 'Nuevo incidente reportado',
+        message: `Se ha reportado el incidente ${code}: ${data.title}`,
+        type: 'INCIDENT_UPDATED',
+        link: `/incidents/${incident.id}`
+      });
+    }
 
     return incident;
   },
