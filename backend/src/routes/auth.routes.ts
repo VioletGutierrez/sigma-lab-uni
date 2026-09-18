@@ -2,6 +2,8 @@
 import { Router } from 'express';
 import { login, register, getMe, refreshToken } from '../controllers/auth.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
+import { validate } from '../middlewares/validate.middleware';
+import { loginSchema, registerSchema } from '../validators/auth.validator';
 
 const router = Router();
 
@@ -18,7 +20,6 @@ const router = Router();
  *   post:
  *     tags: [Autenticacion]
  *     summary: Iniciar sesion
- *     description: Autentica un usuario y devuelve un token JWT
  *     requestBody:
  *       required: true
  *       content:
@@ -36,10 +37,12 @@ const router = Router();
  *     responses:
  *       200:
  *         description: Login exitoso
+ *       400:
+ *         description: Datos invalidos
  *       401:
  *         description: Credenciales invalidas
  */
-router.post('/login', login);
+router.post('/login', validate(loginSchema), login);
 
 /**
  * @swagger
@@ -47,34 +50,13 @@ router.post('/login', login);
  *   post:
  *     tags: [Autenticacion]
  *     summary: Registrar un nuevo usuario
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required: [email, password, fullName, role]
- *             properties:
- *               email:
- *                 type: string
- *                 example: nuevo@uni.edu.ni
- *               password:
- *                 type: string
- *                 example: pass123
- *               fullName:
- *                 type: string
- *                 example: Juan Perez
- *               role:
- *                 type: string
- *                 enum: [STUDENT, TECHNICIAN, ADMIN]
- *                 example: STUDENT
  *     responses:
  *       201:
- *         description: Usuario creado exitosamente
+ *         description: Usuario creado
  *       400:
- *         description: El correo ya esta registrado
+ *         description: Datos invalidos
  */
-router.post('/register', register);
+router.post('/register', validate(registerSchema), register);
 
 /**
  * @swagger
@@ -82,20 +64,9 @@ router.post('/register', register);
  *   post:
  *     tags: [Autenticacion]
  *     summary: Renovar token JWT
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               token:
- *                 type: string
  *     responses:
  *       200:
  *         description: Token renovado
- *       401:
- *         description: Token invalido
  */
 router.post('/refresh', refreshToken);
 
@@ -109,9 +80,7 @@ router.post('/refresh', refreshToken);
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Datos del usuario actual
- *       401:
- *         description: Token no proporcionado o invalido
+ *         description: Datos del usuario
  */
 router.get('/me', authMiddleware, getMe);
 
