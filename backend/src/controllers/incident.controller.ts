@@ -1,6 +1,8 @@
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { Request, Response } from 'express';
 import { incidentService } from '../services/incident.service';
+import { userRepository } from '../repositories/user.repository';
+import { incidentRepository } from '../repositories/incident.repository';
 
 export const getIncidents = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -104,23 +106,11 @@ export const getMyIncidents = async (req: Request, res: Response): Promise<void>
 
 export const getTechnicianWorkload = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { prisma } = await import('../config/database');
-    const technicians = await prisma.user.findMany({
-      where: { role: 'TECHNICIAN', isActive: true },
-      select: { id: true, fullName: true, email: true }
-    });
+    const technicians = await userRepository.findTechnicians();
     const workloads = await Promise.all(
       technicians.map(async (tech) => {
-        const activeCount = await prisma.incident.count({
-          where: {
-            assignedTo: tech.id,
-            status: { in: ['ASSIGNED', 'DIAGNOSING', 'REPAIRING'] }
-          }
-        });
-        const totalCount = await prisma.incident.count({
-          where: { assignedTo: tech.id }
-        });
-        return { ...tech, activeCount, totalCount };
+        const activeCount = await incidentRepository.countActiveByTechnician(tech.id);
+        return { ...tech, activeCount };
       })
     );
     workloads.sort((a, b) => a.activeCount - b.activeCount);
