@@ -1,5 +1,6 @@
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import swaggerJsdoc from 'swagger-jsdoc';
+import { swaggerPaths } from './swagger-docs';
 
 const options = {
   definition: {
@@ -20,9 +21,21 @@ const options = {
         }
       }
     },
-    security: [{ bearerAuth: [] }]
+    security: [{ bearerAuth: [] }],
+    tags: [
+      { name: 'Autenticacion', description: 'Endpoints de autenticacion de usuarios' },
+      { name: 'Incidentes', description: 'Gestion de incidentes en laboratorios' },
+      { name: 'Activos', description: 'Gestion de activos tecnologicos' },
+      { name: 'Mantenimientos', description: 'Gestion de mantenimientos' },
+      { name: 'Laboratorios', description: 'Gestion de laboratorios' },
+      { name: 'Usuarios', description: 'Gestion de usuarios del sistema' },
+      { name: 'Notificaciones', description: 'Gestion de notificaciones' },
+      { name: 'Dashboard', description: 'Estadisticas e indicadores' },
+      { name: 'Upload', description: 'Carga de archivos e imagenes' }
+    ],
+    paths: swaggerPaths
   },
-  apis: ['./src/routes/*.ts']
+  apis: []
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
