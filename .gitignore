@@ -41,6 +41,5 @@ backend/prisma/*.db
 backend/prisma/dev.db*
 
 # Carpetas que subirán otras personas del equipo
-backend/
 database/
 docs/
