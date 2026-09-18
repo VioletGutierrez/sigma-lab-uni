@@ -1,0 +1,16 @@
+// Responsable: Edith de los Angeles Munguia Morales - Backend
+import { Router } from 'express';
+import {
+  getNotifications,
+  markAsRead,
+  markAllAsRead
+} from '../controllers/notification.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
+
+const router = Router();
+
+router.get('/', authMiddleware, getNotifications);
+router.patch('/:id/read', authMiddleware, markAsRead);
+router.patch('/read-all', authMiddleware, markAllAsRead);
+
+export default router;
