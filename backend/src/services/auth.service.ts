@@ -1,4 +1,3 @@
-typescript
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import bcrypt from 'bcryptjs';
 import { userRepository } from '../repositories/user.repository';
