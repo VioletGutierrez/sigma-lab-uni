@@ -1,4 +1,3 @@
-typescript
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { notificationRepository } from '../repositories/notification.repository';
 

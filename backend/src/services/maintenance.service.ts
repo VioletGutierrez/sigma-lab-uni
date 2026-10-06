@@ -1,4 +1,3 @@
-typescript
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { maintenanceRepository } from '../repositories/maintenance.repository';
 import { assetRepository } from '../repositories/asset.repository';
