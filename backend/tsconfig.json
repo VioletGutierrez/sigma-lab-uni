@@ -10,12 +10,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
-    "strictPropertyInitialization": false,
-    "moduleResolution": "node",
-    "noEmitOnError": false
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

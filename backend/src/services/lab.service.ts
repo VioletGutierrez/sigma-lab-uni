@@ -1,4 +1,3 @@
-typescript
 // Responsable: Edith de los Angeles Munguia Morales - Backend
 import { labRepository } from '../repositories/lab.repository';
 
